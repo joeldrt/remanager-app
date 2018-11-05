@@ -50,3 +50,4 @@ remanager_front.code-workspace
 launch.json
 
 /remanager_back/settings.py
+/remanager_back/appdb.sqlite
