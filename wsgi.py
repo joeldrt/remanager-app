@@ -1,5 +1,5 @@
-from remanager_back import app
+from remanager_back.app import main
 
 
 if __name__ == '__main__':
-    app.main()
+    main()
