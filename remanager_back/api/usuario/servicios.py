@@ -34,7 +34,7 @@ def obtener_usuarios_por_organizacion_id(organizacion_id: str) -> List[UserModel
 def editar_usuario(id: int, first_name: str, last_name: str, organization_id: str, authorities: List[str]) -> UserModel:
     user = UserModel.find_by_id(id)
 
-    requested_authorities: List[AuthorityModel] = []
+    requested_authorities = []
 
     for authority_str in authorities:
         authority = AuthorityModel.find_by_authority_name(authority_str)
