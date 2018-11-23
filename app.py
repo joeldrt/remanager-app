@@ -23,7 +23,7 @@ from remanager_back.api.archivos.endpoints.archivos import ns as archivos_namesp
 
 
 app = Flask(__name__, static_url_path='/static')
-logging_conf_path = os.path.normpath(os.path.join(os.path.dirname(__file__), '../logging.conf'))
+logging_conf_path = os.path.normpath(os.path.join(os.path.dirname(__file__), 'logging.conf'))
 logging.config.fileConfig(logging_conf_path)
 log = logging.getLogger(__name__)
 CORS(app)
@@ -97,13 +97,10 @@ def initialize_app(flask_app):
 def main():
     initialize_app(app)
     log.info('>>>>>>>> Iniciando servidor de desarrollo en http://{}/api/ <<<<<<<<<'.format(app.config['SERVER_NAME']))
-    # app.run(debug=settings.FLASK_DEBUG)
+    app.run(debug=settings.FLASK_DEBUG)
 
 
 initialize_app(app)
-log.info('>>>>>>>> Iniciando servidor de desarrollo en http://{}/api/ <<<<<<<<<'.format(app.config['SERVER_NAME']))
-
 
 if __name__ == "__main__":
-    # main()
-    app.run(debug=settings.FLASK_DEBUG)
+    main()

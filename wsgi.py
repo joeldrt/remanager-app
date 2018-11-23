@@ -1,4 +1,4 @@
-from remanager_back.app import app
+from app import app
 from remanager_back.settings import FLASK_DEBUG
 
 

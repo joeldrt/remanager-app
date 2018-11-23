@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve remanager_back
+After=network.target
+
+[Service]
+User=joeldrt
+Group=www-data
+WorkingDirectory=/home/joeldrt/DigiallProjects/grupo_proyecta/remanager-app/
+Environment="PATH=/home/joeldrt/DigiallProjects/grupo_proyecta/remanager-app/remanagerappenv/"
+ExecStart=/home/joeldrt/DigiallProjects/grupo_proyecta/remanager-app/remanagerappenv/bin/uwsgi --ini remanager_back.ini
+
+[Install]
+WantedBy=multi-user.target
