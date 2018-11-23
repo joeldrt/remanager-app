@@ -37,7 +37,6 @@ class Svg(Resource):
         except Exception as exception:
             abort(500, 'Error del servidor al guardar el svg')
 
-    @api.expect(svg)
     @jwt_required
     def get(self):
         login = get_jwt_identity()
