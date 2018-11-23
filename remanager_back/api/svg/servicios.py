@@ -26,7 +26,7 @@ def borrar_svg(svg_id: str) -> Svg:
 
 
 def obtener_todos_los_svgs() -> List[Svg]:
-    svg = Svg.objects().all
+    svg = Svg.objects().all()
     return svg
 
 
