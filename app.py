@@ -22,7 +22,7 @@ from remanager_back.api.svg.endpoint.svg import ns as svgs_namespace
 from remanager_back.api.archivos.endpoints.archivos import ns as archivos_namespace
 
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__, static_url_path='remanager_back/static')
 logging_conf_path = os.path.normpath(os.path.join(os.path.dirname(__file__), 'logging.conf'))
 logging.config.fileConfig(logging_conf_path)
 log = logging.getLogger(__name__)
