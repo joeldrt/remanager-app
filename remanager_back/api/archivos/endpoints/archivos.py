@@ -31,13 +31,13 @@ class Archivos(Resource):
         added_files = []
 
         for current_file in files:
-            os.makedirs('static/{}'.format(folder), exist_ok=True)
+            os.makedirs('remanager_back/static/{}'.format(folder), exist_ok=True)
 
             base64_data = str(current_file['value'])
 
             filename = current_file['filename'].replace(" ", "_")
 
-            saving_file = open('static/{}/{}'.format(folder, filename), 'wb')
+            saving_file = open('remanager_back/static/{}/{}'.format(folder, filename), 'wb')
             saving_file.write(base64.decodebytes(base64_data.encode()))
             saving_file.close()
 

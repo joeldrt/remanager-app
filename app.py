@@ -33,12 +33,12 @@ web_folder_name = settings.WEB_FOLDER_NAME
 
 @app.route('/{}/<string:request_folder>/<string:file_name>'.format(web_folder_name))
 def dispatch_file(request_folder, file_name):
-    return send_from_directory('static/{}'.format(request_folder), file_name)
+    return send_from_directory('remanager_back/static/{}'.format(request_folder), file_name)
 
 
 @app.route('/{}/<string:login>/fotos/<string:file_name>'.format(web_folder_name))
 def dispatch_profile_picture(login, file_name):
-    return send_from_directory('static/{}/fotos'.format(login), file_name)
+    return send_from_directory('remanager_back/static/{}/fotos'.format(login), file_name)
 
 
 def configure_app(flask_app):
