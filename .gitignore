@@ -54,3 +54,4 @@ appdb.sqlite
 
 remanager_back.service
 
+/venv/
