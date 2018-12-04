@@ -10,7 +10,9 @@ from remanager_back.api.restplus import api
 
 from remanager_back.data_auth.models import UserModel
 
-from datetime import timedelta
+from datetime import timedelta, datetime
+
+from firebase_admin import firestore
 
 log = logging.getLogger(__name__)
 
@@ -31,9 +33,18 @@ class UserLogin(Resource):
 
         if UserModel.verify_hash(data['password'], current_user.password):
             if not current_user.activated:
-               abort(401, 'El usuario no está activado')
+                abort(401, 'El usuario no está activado')
             expires = timedelta(days=1)
             created_access_token = create_access_token(identity=current_user, expires_delta=expires)
+
+            ## db = firestore.client()
+            ## doc_ref = db.collection(u'ingreso_{}'.format(current_user.login)).document(
+                ## datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            ## doc_ref.set({
+                ## u'usuario': current_user.login,
+                ## u'fecha_entrada': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            ## })
+
             return {
                 'id_token': created_access_token
             }, 201

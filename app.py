@@ -21,6 +21,10 @@ from remanager_back.api.contrato.endpoints.contrato import ns as contratos_names
 from remanager_back.api.svg.endpoint.svg import ns as svgs_namespace
 from remanager_back.api.archivos.endpoints.archivos import ns as archivos_namespace
 
+# firebase
+## import firebase_admin
+## from firebase_admin import credentials
+
 
 app = Flask(__name__, static_url_path='/remanager_back/static')
 logging_conf_path = os.path.normpath(os.path.join(os.path.dirname(__file__), 'logging.conf'))
@@ -29,6 +33,11 @@ log = logging.getLogger(__name__)
 CORS(app)
 
 web_folder_name = settings.WEB_FOLDER_NAME
+
+# firebase config
+## cred = credentials.Certificate(settings.FIREBASE_FILE)
+## firebase_admin.initialize_app(cred)
+# end firebase config
 
 
 @app.route('/{}/<string:request_folder>/<string:file_name>'.format(web_folder_name))

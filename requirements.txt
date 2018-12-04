@@ -23,3 +23,5 @@ setuptools
 six
 uwsgi
 wheel
+firebase-admin
+grpcio

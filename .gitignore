@@ -55,3 +55,7 @@ appdb.sqlite
 remanager_back.service
 
 /venv/
+
+remanager.json
+
+/remanager_back/static
