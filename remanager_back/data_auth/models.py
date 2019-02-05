@@ -68,8 +68,8 @@ class UserModel(db.Model):
         }
 
     @classmethod
-    def find_by_id(cls, id):
-        return cls.query.filter_by(id=id).first()
+    def find_by_id(cls, user_id):
+        return cls.query.filter_by(id=user_id).first()
 
     @classmethod
     def find_by_login(cls, login):
@@ -81,7 +81,11 @@ class UserModel(db.Model):
 
     @classmethod
     def find_by_organization_id(cls, organization_id):
-        return cls.query.filter_by(organizationId=organization_id)
+        return cls.query.filter(UserModel.organizationId == organization_id, UserModel.login != 'root')
+
+    @classmethod
+    def find_by_organizacion_all(cls, organization_id):
+        return cls.query.filter(UserModel.organizationId == organization_id)
 
     @classmethod
     def return_all(cls):

@@ -31,6 +31,11 @@ def obtener_usuarios_por_organizacion_id(organizacion_id: str) -> List[UserModel
     return usuarios
 
 
+def obtener_usuarios_todos(organizacion_id: str) -> List[UserModel]:
+    usuarios = UserModel.find_by_organizacion_all(organizacion_id)
+    return usuarios
+
+
 def editar_usuario(id: int, first_name: str, last_name: str, organization_id: str, authorities: List[str]) -> UserModel:
     user = UserModel.find_by_id(id)
 

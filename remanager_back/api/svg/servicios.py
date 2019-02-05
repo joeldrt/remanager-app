@@ -12,10 +12,16 @@ def crear_svg(data: json) -> Svg:
 
 def editar_svg(svg_id: str, data: json) -> Svg:
     svg = obtener_svg_por_id(svg_id)
-    if svg.id != data['id']:
-        raise Exception('Diferentes Objetos')
-
-    svg = Svg.from_json(data)
+    new_svg = Svg.from_json(data)
+    svg.fechaAlta = new_svg.fechaAlta
+    svg.nombre = new_svg.nombre
+    svg.imagenContentType = new_svg.imagenContentType
+    svg.imagen = new_svg.imagen
+    svg.width = new_svg.width
+    svg.height = new_svg.height
+    svg.codigoContentType = new_svg.codigoContentType
+    svg.codigo = new_svg.codigo
+    svg.poligonos = new_svg.poligonos
     svg.save()
     return svg
 

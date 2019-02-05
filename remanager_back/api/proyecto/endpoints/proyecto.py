@@ -22,6 +22,7 @@ parser = reqparse.RequestParser()
 parser.add_argument('proyecto_raiz', type=bool, location='args')
 parser.add_argument('padre_id', type=str, location='args')
 
+
 @ns.route('/')
 class AddProyecto(Resource):
 
@@ -74,7 +75,6 @@ class AddProyecto(Resource):
         return proyectos
 
 
-
 @ns.route('/<string:proyecto_id>')
 class AccionesProyectoRegistrado(Resource):
 
@@ -110,11 +110,11 @@ class AccionesProyectoRegistrado(Resource):
 
         proyecto_obj.nombre = data.get('nombre')
         proyecto_obj.descripcion = data.get('descripcion')
-        proyecto_obj.correo_creador = data.get('correo_creador')
-        proyecto_obj.id_seccion = data.get('id_seccion')
-        proyecto_obj.svg_id = data.get('svg_id')
-        proyecto_obj.organizacion_id = data.get('organizacion_id')
-        proyecto_obj.padre_id = data.get('padre_id')
+        proyecto_obj.correo_creador = data.get('correoCreador')
+        proyecto_obj.id_seccion = data.get('idSeccion')
+        proyecto_obj.svgId = data.get('svgId')
+        proyecto_obj.organizacion_id = data.get('organizacionId')
+        proyecto_obj.padre_id = data.get('padreId')
 
         try:
             edited_proyecto = proyecto_obj.save()

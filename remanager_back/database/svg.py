@@ -18,14 +18,13 @@ class Poligono(mongoengine.EmbeddedDocument):
 class Svg(mongoengine.Document):
     fechaAlta = mongoengine.DateTimeField(default=datetime.now)
 
-    nombre = mongoengine.StringField(required=True)
+    nombre = mongoengine.StringField()
     imagenContentType = mongoengine.StringField()
     imagen = mongoengine.StringField()
     width = mongoengine.FloatField()
     height = mongoengine.FloatField()
     codigoContentType = mongoengine.StringField()
     codigo = mongoengine.StringField()
-    proyectoId = mongoengine.StringField()
     poligonos = mongoengine.ListField(mongoengine.EmbeddedDocumentField(Poligono))
 
     def to_dict(self):

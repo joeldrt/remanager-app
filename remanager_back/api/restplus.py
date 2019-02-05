@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 authorizations = {
     'apikey': {
-        'type' : 'apiKey',
+        'type': 'apiKey',
         'in': 'header',
         'name': 'Authorization'
     }

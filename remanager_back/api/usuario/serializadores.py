@@ -18,3 +18,22 @@ usuario = api.model('Usuario', {
     'organizationId': fields.String(description='Id de la Organización a la que pertenece el usuario'),
     'authorities': fields.List(fields.String)
 })
+
+usuario_alta = api.model('UsuarioAlta', {
+    'login': fields.String(required=True, description='Sobrenombre del usuario'),
+    'email': fields.String(required=True, description='Coreo electrónico del usuario'),
+    'password': fields.String(required=True, description='Password del usuario'),
+    'firstName': fields.String(required=True, description='Nombre del usuario'),
+    'lastName': fields.String(description='Apellidos del usuario'),
+    'organizationId': fields.String(required=True, description='Id de la Organización a la que pertenece el usuario'),
+    'authorities': fields.List(fields.String)
+})
+
+usuario_editar = api.model('UsuarioEditar', {
+    'id': fields.Integer(readOnly=True, description='Identificador unico del usuario'),
+    'login': fields.String(required=True, description='Sobrenombre del usuario'),
+    'email': fields.String(required=True, description='Coreo electrónico del usuario'),
+    'firstName': fields.String(required=True, description='Nombre del usuario'),
+    'lastName': fields.String(description='Apellidos del usuario'),
+    'authorities': fields.List(fields.String)
+})

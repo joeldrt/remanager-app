@@ -5,7 +5,7 @@ from flask_restplus import Resource, abort
 from flask_jwt_extended import (jwt_required, get_jwt_identity)
 from remanager_back.api.svg.servicios import crear_svg, editar_svg, borrar_svg, obtener_todos_los_svgs,\
     obtener_svg_por_id
-from remanager_back.api.svg.serializadores import svg
+from remanager_back.api.svg.serializadores import svg, svg_alta
 from remanager_back.api.restplus import api
 
 from remanager_back.data_auth.models import UserModel
@@ -20,7 +20,7 @@ ns = api.namespace('svgs', description='Servicios para manejar los svg de la apl
 class Svg(Resource):
 
     @api.marshal_with(svg)
-    @api.expect(svg)
+    @api.expect(svg_alta)
     @jwt_required
     def post(self):
         login = get_jwt_identity()
@@ -29,7 +29,7 @@ class Svg(Resource):
         if not current_user.has_authority(AUTHORITY_ROOT):
             abort(401, 'No tiene permisos para realizar esta acción')
 
-        data = request.json
+        data = request.data
 
         try:
             svg_obj = crear_svg(data)
@@ -84,7 +84,7 @@ class SvgById(Resource):
         if not current_user.has_authority(AUTHORITY_ROOT):
             abort(401, 'No tiene permisos para realizar esta acción')
 
-        data = request.json
+        data = request.data
 
         try:
             svg_obj = editar_svg(svg_id=svg_id, data=data)
