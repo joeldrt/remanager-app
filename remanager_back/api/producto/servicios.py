@@ -54,6 +54,11 @@ def obtener_productos_por_organizacion_id_y_proyecto_id(organizacion_id: str, pr
     return productos
 
 
+def obtener_productos_por_id_seccion(id_seccion: str) -> List[Producto]:
+    productos = Producto.objects(idSeccion=id_seccion)
+    return productos
+
+
 def obtener_producto_por_id(producto_id: str) -> Producto:
     producto = Producto.objects(id=producto_id).first()
     return producto

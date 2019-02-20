@@ -9,7 +9,7 @@ from remanager_back.api.svg.serializadores import svg, svg_alta
 from remanager_back.api.restplus import api
 
 from remanager_back.data_auth.models import UserModel
-from remanager_back.settings import AUTHORITY_ROOT
+from remanager_back.settings import AUTHORITY_ADMIN
 
 log = logging.getLogger(__name__)
 
@@ -26,7 +26,7 @@ class Svg(Resource):
         login = get_jwt_identity()
         current_user = UserModel.find_by_login(login)
 
-        if not current_user.has_authority(AUTHORITY_ROOT):
+        if not current_user.has_authority(AUTHORITY_ADMIN):
             abort(401, 'No tiene permisos para realizar esta acción')
 
         data = request.data
@@ -42,7 +42,7 @@ class Svg(Resource):
         login = get_jwt_identity()
         current_user = UserModel.find_by_login(login)
 
-        if not current_user.has_authority(AUTHORITY_ROOT):
+        if not current_user.has_authority(AUTHORITY_ADMIN):
             abort(401, 'No tiene permisos para realizar esta acción')
 
         try:
@@ -81,7 +81,7 @@ class SvgById(Resource):
         login = get_jwt_identity()
         current_user = UserModel.find_by_login(login)
 
-        if not current_user.has_authority(AUTHORITY_ROOT):
+        if not current_user.has_authority(AUTHORITY_ADMIN):
             abort(401, 'No tiene permisos para realizar esta acción')
 
         data = request.data
@@ -97,7 +97,7 @@ class SvgById(Resource):
         login = get_jwt_identity()
         current_user = UserModel.find_by_login(login)
 
-        if not current_user.has_authority(AUTHORITY_ROOT):
+        if not current_user.has_authority(AUTHORITY_ADMIN):
             abort(401, 'No tiene permisos para realizar esta acción')
 
         try:

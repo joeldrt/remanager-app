@@ -9,7 +9,7 @@ from remanager_back.api.cliente.servicios import crear_cliente, obtener_cliente_
     obtener_todos_los_clientes_por_organizacion_id, obtener_clientes_por_correo_vendedor
 from remanager_back.api.contrato.servicios import obtener_contratos_por_cliente_id,\
     obtener_resumen_contratos_por_cliente
-from remanager_back.api.cliente.serializadores import cliente, resumen_cliente_contratos
+from remanager_back.api.cliente.serializadores import cliente, cliente_alta, resumen_cliente_contratos
 from remanager_back.api.restplus import api
 
 from remanager_back.data_auth.models import UserModel
@@ -25,7 +25,7 @@ ns = api.namespace('clientes', description='Servicios para manejar los cliente')
 class Clientes(Resource):
 
     @api.marshal_with(cliente)
-    @api.expect(cliente)
+    @api.expect(cliente_alta)
     @jwt_required
     def post(self):
         login = get_jwt_identity()

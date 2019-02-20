@@ -13,7 +13,6 @@ def crear_svg(data: json) -> Svg:
 def editar_svg(svg_id: str, data: json) -> Svg:
     svg = obtener_svg_por_id(svg_id)
     new_svg = Svg.from_json(data)
-    svg.fechaAlta = new_svg.fechaAlta
     svg.nombre = new_svg.nombre
     svg.imagenContentType = new_svg.imagenContentType
     svg.imagen = new_svg.imagen

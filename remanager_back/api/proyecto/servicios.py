@@ -22,6 +22,12 @@ def obtener_proyectos_por_padreId(organizacion_id: str, padre_id: str) -> List[P
     return proyectos
 
 
+def obtener_productos_por_id_seccion(organizacion_id: str, id_seccion: str) -> List[Proyecto]:
+    proyectos = Proyecto.objects(Q(organizacionId=organizacion_id) &
+                                 Q(idSeccion=id_seccion))
+    return proyectos
+
+
 def obtener_proyecto_por_id(organizacion_id: str, proyecto_id: str) -> Proyecto:
     proyecto = Proyecto.objects(Q(organizacionId=organizacion_id) &
                                 Q(id=proyecto_id)).first()

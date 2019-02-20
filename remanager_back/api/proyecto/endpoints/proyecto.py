@@ -4,7 +4,7 @@ from flask import request
 from flask_restplus import Resource, reqparse, abort
 from flask_jwt_extended import (jwt_required, get_jwt_identity)
 from remanager_back.api.proyecto.servicios import obtener_proyecto_por_id, obtener_proyectos_por_organizacion, \
-    obtener_proyectos_root_por_organizacion, obtener_proyectos_por_padreId
+    obtener_proyectos_root_por_organizacion, obtener_proyectos_por_padreId, obtener_productos_por_id_seccion
 from remanager_back.api.producto.servicios import obtener_productos_por_proyecto_id
 from remanager_back.api.proyecto.serializadores import proyecto
 from remanager_back.api.producto.serializadores import producto
@@ -21,7 +21,7 @@ ns = api.namespace('proyectos', description='Servicios para manejar los proyecto
 parser = reqparse.RequestParser()
 parser.add_argument('proyecto_raiz', type=bool, location='args')
 parser.add_argument('padre_id', type=str, location='args')
-
+parser.add_argument('id_seccion', type=str, location='args')
 
 @ns.route('/')
 class AddProyecto(Resource):
@@ -63,11 +63,15 @@ class AddProyecto(Resource):
         if data['proyecto_raiz']:
             proyectos_obj = obtener_proyectos_root_por_organizacion(organizacion_id=current_user.organizationId)
         else:
-            if data['padre_id'] is None:
-                proyectos_obj = obtener_proyectos_por_organizacion(organizacion_id=current_user.organizationId)
+            if data['id_seccion']:
+                proyectos_obj = obtener_productos_por_id_seccion(organizacion_id=current_user.organizationId,
+                                                                 id_seccion=data['id_seccion'])
             else:
-                proyectos_obj = obtener_proyectos_por_padreId(organizacion_id=current_user.organizationId,
-                                                              padre_id=data['padre_id'])
+                if data['padre_id'] is None:
+                    proyectos_obj = obtener_proyectos_por_organizacion(organizacion_id=current_user.organizationId)
+                else:
+                    proyectos_obj = obtener_proyectos_por_padreId(organizacion_id=current_user.organizationId,
+                                                                  padre_id=data['padre_id'])
 
         proyectos = [
             proyecto.to_dict() for proyecto in proyectos_obj
@@ -110,11 +114,11 @@ class AccionesProyectoRegistrado(Resource):
 
         proyecto_obj.nombre = data.get('nombre')
         proyecto_obj.descripcion = data.get('descripcion')
-        proyecto_obj.correo_creador = data.get('correoCreador')
-        proyecto_obj.id_seccion = data.get('idSeccion')
+        proyecto_obj.correoCreador = data.get('correoCreador')
+        proyecto_obj.idSeccion = data.get('idSeccion')
         proyecto_obj.svgId = data.get('svgId')
-        proyecto_obj.organizacion_id = data.get('organizacionId')
-        proyecto_obj.padre_id = data.get('padreId')
+        proyecto_obj.organizacionId = data.get('organizacionId')
+        proyecto_obj.padreId = data.get('padreId')
 
         try:
             edited_proyecto = proyecto_obj.save()

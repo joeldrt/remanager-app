@@ -7,7 +7,7 @@ from flask_jwt_extended import (jwt_required, get_jwt_identity)
 from remanager_back.api.producto.servicios import crear_producto, obtener_productos,\
     obtener_productos_por_organizacion_id, obtener_producto_por_id, obtener_producto_por_id_y_organizacion_id,\
     editar_producto, borrar_producto_por_id, obtener_productos_por_proyecto_id,\
-    obtener_productos_por_organizacion_id_y_proyecto_id
+    obtener_productos_por_organizacion_id_y_proyecto_id, obtener_productos_por_id_seccion
 from remanager_back.api.contrato.servicios import obtener_contratos_por_producto_id,\
     obtener_contratos_por_producto_id_y_correo_vendedor
 from remanager_back.api.producto.serializadores import producto
@@ -25,6 +25,7 @@ ns = api.namespace('productos', description='Servicios para manejar los producto
 
 buscar_productos_parser = reqparse.RequestParser()
 buscar_productos_parser.add_argument('proyectoId', type=str, location='args')
+buscar_productos_parser.add_argument('id_seccion', type=str, location='args')
 
 @ns.route('/')
 class Productos(Resource):
@@ -68,18 +69,23 @@ class Productos(Resource):
         data = buscar_productos_parser.parse_args()
 
         try:
-            if not data['proyectoId']:
-                if current_user.has_authority(AUTHORITY_ADMIN) or current_user.has_authority(AUTHORITY_ROOT):
-                    productos_obj = obtener_productos()
-                else:
-                    productos_obj = obtener_productos_por_organizacion_id(organizacion_id=current_user.organizationId)
-            else:
+            if data['proyectoId']:
                 if current_user.has_authority(AUTHORITY_ADMIN) or current_user.has_authority(AUTHORITY_ROOT):
                     productos_obj = obtener_productos_por_proyecto_id(data['proyectoId'])
                 else:
                     productos_obj = obtener_productos_por_organizacion_id_y_proyecto_id(
                         organizacion_id=current_user.organizationId,
                         proyecto_id=data['proyectoId'])
+            else:
+                if data['id_seccion']:
+                    productos_obj = obtener_productos_por_id_seccion(id_seccion=data['idSeccion'])
+                else:
+                    if current_user.has_authority(AUTHORITY_ADMIN) or current_user.has_authority(AUTHORITY_ROOT):
+                        productos_obj = obtener_productos()
+                    else:
+                        productos_obj = obtener_productos_por_organizacion_id(
+                            organizacion_id=current_user.organizationId)
+
             productos = [
                 producto.to_dict() for producto in productos_obj
             ]

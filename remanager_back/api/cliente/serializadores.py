@@ -17,6 +17,12 @@ cliente = api.model('Cliente', {
     'telefono': fields.String(required=True, description='Teléfono del cliente')
 })
 
+cliente_alta = api.model('ClienteAlta', {
+    'email': fields.String(required=True, description='Email del cliente'),
+    'nombre': fields.String(required=True, description='Nombre del cliente'),
+    'telefono': fields.String(required=True, description='Teléfono del cliente')
+})
+
 resumen_cliente_contratos = api.model('ResumenClienteContrato', {
     'cliente': fields.Nested(cliente),
     'resumen_contratos': fields.List(fields.Nested(resumen_contrato), description='lista de contratos del cliente')
